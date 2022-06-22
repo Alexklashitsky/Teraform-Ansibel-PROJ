@@ -22,7 +22,7 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "week6" {
-  name     = var.resource_group_name
+  name     = var.resource_group_name_prod
   location = var.location
 }
 

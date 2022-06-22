@@ -2,7 +2,7 @@
 resource "azurerm_virtual_machine_scale_set" "scaleSet" {
   name                = "vmscaleset"
   location            = var.location
-  resource_group_name = var.resource_group_name
+  resource_group_name = azurerm_resource_group.week6.name
   upgrade_policy_mode = "Manual"
 
   sku {
@@ -58,7 +58,7 @@ resource "azurerm_virtual_machine_scale_set" "scaleSet" {
 #### elastic scale
 resource "azurerm_monitor_autoscale_setting" "AutoscaleSetting" {
   name                = "myAutoscaleSetting"
-  resource_group_name = var.resource_group_name
+  resource_group_name = azurerm_resource_group.week6.name
   location            = var.location
   target_resource_id  = azurerm_virtual_machine_scale_set.scaleSet.id
 
@@ -66,9 +66,10 @@ resource "azurerm_monitor_autoscale_setting" "AutoscaleSetting" {
     name = "defaultProfile"
 
     capacity {
-      default = 1
-      minimum = 1
-      maximum = 3
+      default = 3
+      minimum = 3
+      maximum = 10
+
     }
 
     rule {
@@ -124,7 +125,7 @@ resource "azurerm_monitor_autoscale_setting" "AutoscaleSetting" {
 resource "azurerm_linux_virtual_machine" "terminal" {
   name                  = "terminal"
   location              = var.location
-  resource_group_name   = var.resource_group_name
+  resource_group_name   = azurerm_resource_group.week6.name
   network_interface_ids = [module.network.terminal_net_interface_id]
   size                  = "Standard_F2"
   os_disk {

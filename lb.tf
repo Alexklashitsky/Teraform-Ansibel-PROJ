@@ -2,7 +2,7 @@
 resource "azurerm_lb" "LB" {
   name                = "LoadBalancer"
   location            = var.location
-  resource_group_name = var.resource_group_name
+  resource_group_name = azurerm_resource_group.week6.name
   sku                 = "Standard"
 
   frontend_ip_configuration {
