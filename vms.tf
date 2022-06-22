@@ -1,4 +1,4 @@
-# scale set
+# #######scale set
 resource "azurerm_virtual_machine_scale_set" "scaleSet" {
   name                = "vmscaleset"
   location            = var.location
@@ -121,7 +121,7 @@ resource "azurerm_monitor_autoscale_setting" "AutoscaleSetting" {
 
 }
 
-##### Create virtual machine terminal for manging
+### Create virtual machine terminal for manging
 resource "azurerm_linux_virtual_machine" "terminal" {
   name                  = "terminal"
   location              = var.location
