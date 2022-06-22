@@ -12,4 +12,14 @@ output "db_server_password" {
   value     = module.db.db_server_password
   sensitive = true
 }
+output "admin_password_for_servers_and_db" {
+  value = var.secret
+}
+
+output "admin_user_for_servers" {
+  value = var.admin_user
+}
+output "admin_password_for_servers" {
+  value = var.secret
+}
 

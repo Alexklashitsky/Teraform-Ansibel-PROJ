@@ -34,8 +34,8 @@ resource "azurerm_virtual_machine_scale_set" "scaleSet" {
 
   os_profile {
     computer_name_prefix = "vmlab"
-    admin_username       = "app"
-    admin_password       = "Alex310224993"
+    admin_username       = var.admin_user
+    admin_password       = var.secret
   }
 
   os_profile_linux_config {
@@ -55,7 +55,7 @@ resource "azurerm_virtual_machine_scale_set" "scaleSet" {
   }
 
 }
-# elastic scale
+#### elastic scale
 resource "azurerm_monitor_autoscale_setting" "AutoscaleSetting" {
   name                = "myAutoscaleSetting"
   resource_group_name = var.resource_group_name
@@ -120,7 +120,7 @@ resource "azurerm_monitor_autoscale_setting" "AutoscaleSetting" {
 
 }
 
-# Create virtual machine terminal
+##### Create virtual machine terminal for manging
 resource "azurerm_linux_virtual_machine" "terminal" {
   name                  = "terminal"
   location              = var.location
@@ -142,8 +142,8 @@ resource "azurerm_linux_virtual_machine" "terminal" {
   }
 
   computer_name                   = "terminal"
-  admin_username                  = "app"
-  admin_password                  = "Alex310224993"
+  admin_username                  = var.admin_user
+  admin_password                  = var.secret
   disable_password_authentication = false
 
 }

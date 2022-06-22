@@ -19,3 +19,7 @@ variable "secret" {
   default = "Alex310224993"
 }
 
+variable "admin_user" {
+  default = "app"
+}
+

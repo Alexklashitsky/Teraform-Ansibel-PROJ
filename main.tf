@@ -9,6 +9,7 @@ terraform {
   }
 
   required_version = ">= 1.1.0"
+  ######Configure backend state storge
   # backend "azurerm" {
   #   resource_group_name  = "week6"
   #   storage_account_name = "backendstorage2022"
@@ -16,10 +17,8 @@ terraform {
   #   key                  = "prod.terraform.tfstate"
   # }
 }
-
 provider "azurerm" {
   features {}
-
 }
 
 resource "azurerm_resource_group" "week6" {
@@ -34,7 +33,6 @@ module "network" {
   resource_group_name = azurerm_resource_group.week6.name
 
 }
-
 module "db" {
   source              = "./db"
   location            = var.location
@@ -42,11 +40,3 @@ module "db" {
   resource_group_name = azurerm_resource_group.week6.name
   vnet_id             = module.network.vnet_id
 }
-
-# module "lb" {
-#   source              = "./lb"
-#   location            = var.location
-#   resource_group_name = azurerm_resource_group.week6.name
-#   public_ip           = module.network.app_public_ip
-#   application_port    = var.application_port
-# }
