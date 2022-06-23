@@ -1,10 +1,13 @@
-# # # # privte DNS
+#################################################################################################
+#                                   privte DNS                                                  #
+##################################################################################################
 
+#------------------------------------DNS zone
 resource "azurerm_private_dns_zone" "dns" {
   name                = "tracker.postgres.database.azure.com"
   resource_group_name = var.resource_group_name
 }
-
+#-----------------------------------DNS link to privete subnet
 resource "azurerm_private_dns_zone_virtual_network_link" "dns_link" {
   name                  = "dns_link"
   private_dns_zone_name = azurerm_private_dns_zone.dns.name

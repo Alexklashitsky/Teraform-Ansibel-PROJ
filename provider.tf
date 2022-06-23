@@ -1,4 +1,6 @@
-# Configure the Azure provider
+##################################################################################
+#                         Configure the Azure provider                           #
+##################################################################################
 terraform {
   required_providers {
     azurerm = {
@@ -9,7 +11,9 @@ terraform {
   }
 
   required_version = ">= 1.1.0"
-  ######Configure backend state storge
+  #####################################################################################
+  #                       Configure backend state storge                              #
+  #####################################################################################
   # backend "azurerm" {
   #   resource_group_name  = "week6"
   #   storage_account_name = "backendstorage2022"

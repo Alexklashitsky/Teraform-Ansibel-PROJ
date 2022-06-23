@@ -1,25 +1,31 @@
-
-# Create a virtual network
+############################################################################# 
+#                       Create a virtual network                            #
+#############################################################################
 resource "azurerm_virtual_network" "vnet" {
   name                = "${var.base_name}vnet"
   address_space       = ["10.0.0.0/24"]
   location            = var.location
   resource_group_name = var.resource_group_name
 }
-# publice 
+#####################################################################################
+#                                         subnets                                   #
+#####################################################################################
+
+#>>>>>>>>>>>>>>>>>>>>>>>>   publice   <<<<<<<<<<<<<<<<<<<<<<<< 
 resource "azurerm_subnet" "public" {
   name                 = "public"
   resource_group_name  = var.resource_group_name
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = ["10.0.0.0/26"]
 }
-#privete
+#>>>>>>>>>>>>>>>>>>>>>>>>>>>  privete  <<<<<<<<<<<<<<<<<<<<
 resource "azurerm_subnet" "privete" {
   name                 = "privete"
   resource_group_name  = var.resource_group_name
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = ["10.0.0.88/29"]
-  #   delegation for the DB
+
+  #  ---------- delegation for the DB------
   delegation {
     name = "delegation"
 
@@ -29,9 +35,12 @@ resource "azurerm_subnet" "privete" {
     }
   }
 }
-# Create public IPs
 
-# Relay machine ip
+############################################################################## 
+#                             Create public IPs                              #    
+##############################################################################
+
+#--------------------------------- Relay machine ip
 resource "azurerm_public_ip" "publicIpApp" {
   name                = "appServerPublicIp"
   location            = var.location
@@ -39,7 +48,7 @@ resource "azurerm_public_ip" "publicIpApp" {
   allocation_method   = "Static"
 
 }
-# lb ip
+# ------------------------------------lb ip
 resource "azurerm_public_ip" "publicIpLB" {
   name                = "LBServerPublicIp"
   location            = var.location
@@ -59,11 +68,12 @@ resource "random_string" "fqdn" {
 
 
 
+#######################################################################################
+#                     Create Network Security Groups and rule                         #
+#######################################################################################
 
-# # Create Network Security Groups and rule
 
-
-#public
+#------------------------------------public
 resource "azurerm_network_security_group" "public_nsg" {
   name                = "public_nsg"
   location            = var.location
@@ -92,7 +102,7 @@ resource "azurerm_network_security_group" "public_nsg" {
     destination_address_prefix = "*"
   }
 }
-#privete
+#------------------------------privete
 resource "azurerm_network_security_group" "privete_nsg" {
   name                = "privete_nsg"
   location            = var.location
@@ -132,11 +142,29 @@ resource "azurerm_network_security_group" "privete_nsg" {
     destination_address_prefix = "*"
   }
 }
+################################################################################################
+#                     connect subnets to the securite groups                                   #
+################################################################################################
+
+#------------------------------------public
+resource "azurerm_subnet_network_security_group_association" "public" {
+  subnet_id                 = azurerm_subnet.public.id
+  network_security_group_id = azurerm_network_security_group.public_nsg.id
+}
+
+#-----------------------------------privete
+resource "azurerm_subnet_network_security_group_association" "privete" {
+  subnet_id                 = azurerm_subnet.privete.id
+  network_security_group_id = azurerm_network_security_group.privete_nsg.id
+}
 
 
-# # # # Create network interface
 
-#terminal  server
+################################################################################################
+#                                   Create network interface                                   #
+################################################################################################
+
+#--------------------------------------terminal  server
 resource "azurerm_network_interface" "appNic" {
   name                = "appNic"
   location            = var.location
@@ -150,14 +178,5 @@ resource "azurerm_network_interface" "appNic" {
     public_ip_address_id          = azurerm_public_ip.publicIpApp.id
 
   }
-}
-
-resource "azurerm_subnet_network_security_group_association" "public" {
-  subnet_id                 = azurerm_subnet.public.id
-  network_security_group_id = azurerm_network_security_group.public_nsg.id
-}
-resource "azurerm_subnet_network_security_group_association" "privete" {
-  subnet_id                 = azurerm_subnet.privete.id
-  network_security_group_id = azurerm_network_security_group.privete_nsg.id
 }
 

@@ -1,4 +1,6 @@
-# #LB
+#########################################################################
+#                                      LB                               #
+#########################################################################
 resource "azurerm_lb" "LB" {
   name                = "LoadBalancer"
   location            = var.location
@@ -11,8 +13,9 @@ resource "azurerm_lb" "LB" {
   }
 }
 
-# backendpool
-
+########################################################################
+#                               backendpool                            #
+########################################################################
 resource "azurerm_lb_backend_address_pool" "backendPool" {
 
   name            = "BackEndAddressPool"
@@ -20,7 +23,9 @@ resource "azurerm_lb_backend_address_pool" "backendPool" {
 
 }
 
-# porde
+########################################################################
+#                              porde                                   #
+########################################################################
 
 resource "azurerm_lb_probe" "LB" {
   loadbalancer_id = azurerm_lb.LB.id
@@ -28,8 +33,9 @@ resource "azurerm_lb_probe" "LB" {
   port            = var.application_port
 }
 
-# lb rules
-
+########################################################################
+#                                lb rules                              #
+########################################################################
 resource "azurerm_lb_rule" "lbnatrule" {
   loadbalancer_id                = azurerm_lb.LB.id
   name                           = "http"
@@ -41,9 +47,9 @@ resource "azurerm_lb_rule" "lbnatrule" {
   probe_id                       = azurerm_lb_probe.LB.id
   disable_outbound_snat          = true
 }
-
-# lboutboundrule
-
+#########################################################################
+#                             lboutboundrule                            #
+#########################################################################
 resource "azurerm_lb_outbound_rule" "outRule" {
   loadbalancer_id         = azurerm_lb.LB.id
   name                    = "OutboundRule"

@@ -1,7 +1,9 @@
 variable "location" {
+  type    = string
   default = "australiaeast"
 }
 variable "resource_group_name" {
+  type    = string
   default = "week6-stg"
 }
 # variable "resource_group_name_prod" {
