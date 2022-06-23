@@ -66,9 +66,9 @@ resource "azurerm_monitor_autoscale_setting" "AutoscaleSetting" {
     name = "defaultProfile"
 
     capacity {
-      default = 3
-      minimum = 3
-      maximum = 10
+      default = var.vm_count
+      minimum = var.vm_count
+      maximum = 5
 
     }
 
@@ -121,7 +121,7 @@ resource "azurerm_monitor_autoscale_setting" "AutoscaleSetting" {
 
 }
 
-### Create virtual machine terminal for manging
+## Create virtual machine terminal for manging
 resource "azurerm_linux_virtual_machine" "terminal" {
   name                  = "terminal"
   location              = var.location

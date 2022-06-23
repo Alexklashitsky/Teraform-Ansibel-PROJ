@@ -18,19 +18,22 @@ variable "privete_subnet_id" {
 #   type = string
 # }
 variable "vnet_id" {
-  #   type = string
+  type = string
 }
 # variable "dns_link" {
 #   type = string
 # }
 
 
+# variable "dbname_prod" {
+#   default = "psqlservice"
+# }
+# variable "dbname_stage" {
 
-variable "dbname_prod" {
-  default = "psqlservice"
-}
-variable "dbname_stage" {
+#   default = "psqlservice-stage"
+# }
+variable "db_name" {
 
-  default = "psqlservice-stage"
+  type = string
 }
 

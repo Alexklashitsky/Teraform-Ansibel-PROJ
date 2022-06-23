@@ -62,6 +62,7 @@ resource "random_string" "fqdn" {
 
 # # Create Network Security Groups and rule
 
+
 #public
 resource "azurerm_network_security_group" "public_nsg" {
   name                = "public_nsg"

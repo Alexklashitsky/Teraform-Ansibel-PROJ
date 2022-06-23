@@ -16,7 +16,7 @@ resource "azurerm_private_dns_zone_virtual_network_link" "dns_link" {
 # ppostgresql server
 
 resource "azurerm_postgresql_flexible_server" "psqlservice" {
-  name                   = var.dbname_stage
+  name                   = var.db_name
   resource_group_name    = var.resource_group_name
   location               = var.location
   version                = "13"
