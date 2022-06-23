@@ -15,8 +15,11 @@ resource "azurerm_private_dns_zone_virtual_network_link" "dns_link" {
   resource_group_name   = var.resource_group_name
 }
 
+###########################################################################
+#                              ppostgresql server                         #
+###########################################################################
 
-# ppostgresql server
+#-----------------------------the server
 
 resource "azurerm_postgresql_flexible_server" "psqlservice" {
   name                   = var.db_name
@@ -33,7 +36,7 @@ resource "azurerm_postgresql_flexible_server" "psqlservice" {
   sku_name               = "B_Standard_B1ms"
   depends_on             = [azurerm_private_dns_zone_virtual_network_link.dns_link]
 
-  # database
+  #--------------------------------- database
 
 }
 resource "azurerm_postgresql_flexible_server_database" "db" {
@@ -44,7 +47,7 @@ resource "azurerm_postgresql_flexible_server_database" "db" {
 
 }
 
-# fw
+# ------------------------------------fw
 
 resource "azurerm_postgresql_flexible_server_firewall_rule" "fwconfig" {
   name      = "example-fw"
@@ -53,7 +56,7 @@ resource "azurerm_postgresql_flexible_server_firewall_rule" "fwconfig" {
   start_ip_address = "0.0.0.0"
   end_ip_address   = "255.255.255.255"
 }
-# diseble ssl
+# -------------------------------diseble ssl
 
 resource "azurerm_postgresql_flexible_server_configuration" "flexible_server_configuration" {
   name      = "require_secure_transport"
