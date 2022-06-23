@@ -1,4 +1,3 @@
-
 # Create a virtual network
 resource "azurerm_virtual_network" "vnet" {
   name                = "${var.base_name}vnet"
@@ -159,4 +158,3 @@ resource "azurerm_subnet_network_security_group_association" "privete" {
   subnet_id                 = azurerm_subnet.privete.id
   network_security_group_id = azurerm_network_security_group.privete_nsg.id
 }
-

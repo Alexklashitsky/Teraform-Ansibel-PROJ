@@ -25,3 +25,6 @@ output "vnet_id" {
 output "terminal_net_interface_id" {
   value = azurerm_network_interface.appNic.id
 }
+# output "win_net_interface_id" {
+#   value = azurerm_network_interface.publicIpLB.id
+# }

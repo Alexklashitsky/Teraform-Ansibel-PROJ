@@ -22,7 +22,7 @@
 # }
 
 resource "azurerm_resource_group" "week6" {
-  name     = var.resource_group_name
+  name     = var.resource_group_name_poc
   location = var.location
 }
 

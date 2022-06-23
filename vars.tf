@@ -7,6 +7,9 @@ variable "resource_group_name" {
 variable "resource_group_name_prod" {
   default = "week6_prod"
 }
+variable "resource_group_name_poc" {
+  default = "week6_poc"
+}
 
 variable "application_port" {
   default = 8080
@@ -17,6 +20,9 @@ variable "dbname_prod" {
 variable "dbname_stage" {
 
   default = "psqlservice-stage"
+}
+variable "dbname_poc" {
+  default = "psqlservice-poc"
 }
 variable "secret" {
   default = "Alex310224993"
