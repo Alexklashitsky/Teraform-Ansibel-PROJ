@@ -44,9 +44,12 @@ When the only difference between them is the amount of processors available in t
 
 ## moduls
 The project includes two models:
-- network
+- network:
+
 Produces the network infrastructure of the environment, including subnets information security rules, external IP address and nics
 - data base
+
+Produces the database including the managed server, the database itself security rules, and private DNS to DB
 
 ## Requirements
 
@@ -119,3 +122,22 @@ Produces the network infrastructure of the environment, including subnets inform
 - Enjoy your new environment
 
 ### Ansible
+The repo includes an anseble folder that contains files that are intended to be deployed on the servers set up using the code.
+
+The folder contains two subfolders,: STG, PROD.
+In each of them a host file and a playbook file that were intended to be run with the help of the ansible on the created servers.
+##### Ansible var files
+
+The repo includes an anseble folder that contains files that are intended to be deployed on the servers set up using the code.
+The folder contains two subfolders,: STG, PROD.
+In each of them a host file and a playbook file that were intended to be run with the help of the ansible on the created servers.
+In addition, the folder contains an encrypted folder (password will be sent separately), which contains sensitive variables, for the production environment, and the tests (prodvars, stgvars)
+
+##### Ansible Play book
+The playbook: 
+- updates the system
+- installs git and nodejs v14.
+- imports the app 
+- installs dependencies
+- completes sensitive data according to the data file.
+- Installs the PM2 service and makes it work after reboot
