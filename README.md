@@ -43,6 +43,10 @@ And PROD
 When the only difference between them is the amount of processors available in the production environment
 
 ## moduls
+The project includes two models:
+- network
+Produces the network infrastructure of the environment, including subnets information security rules, external IP address and nics
+- data base
 
 ## Requirements
 
